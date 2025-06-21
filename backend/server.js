@@ -9,6 +9,8 @@ const adminRoutes = require('./routes/adminRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 const wqcRoutes = require('./routes/wqcRoutes')
 const saathiRoutes = require('./routes/saathiRoutes');
+const questionForSaathiRoutes = require('./routes/questionForSaathiRoutes');
+const assessmentRoutes = require('./routes/assessmentRoutes')
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
@@ -19,6 +21,9 @@ app.use('/api/wqc',wqcRoutes);
 app.use('/api/saathi', saathiRoutes);
 
 app.use('/api/assessment', assessmentRoutes);
+
+
+app.use('/api/questionsToSaathi', questionForSaathiRoutes);
 
 
 // Route to display the initial message on browser
