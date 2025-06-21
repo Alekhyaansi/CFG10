@@ -3,9 +3,12 @@ require('dotenv').config();
 const dbconnection = require('./db/connection');
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT 
+const authRoutes = require('./routes/authRoutes');
+const bcrypt = require('bcryptjs');
+bcrypt.hash('admin123', 10).then(console.log);
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 
 // Route to display the initial message on browser
 app.get('/', (req, res) => {
