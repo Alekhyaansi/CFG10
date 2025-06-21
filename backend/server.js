@@ -8,7 +8,10 @@ const dbconnection = require("./db/connection"); // ✅ Import DB function
 const authRoutes = require("./routes/authRoutes"); // ✅ Your auth routes
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT 
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const questionRoutes = require('./routes/questionRoutes');
 
 // ✅ Connect to MongoDB
 dbconnection();
@@ -21,6 +24,11 @@ app.use(
   })
 );
 app.use(express.json());
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/assessment', assessmentRoutes);
+app.use('/api/wqc',wqcRoutes)
 
 // ✅ Routes
 app.use("/api/auth", authRoutes);
