@@ -3,6 +3,7 @@ const Trainer = require('../models/Trainer');
 const PostAssessment = require('../models/PostAssessment');
 const WQC = require('../models/Wqc');
 
+
 exports.getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find().sort('sessionNumber');
@@ -10,9 +11,8 @@ exports.getAllCourses = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch courses', error: err.message });
   }
+
 };
-
-
 
 exports.getMyDashboard = async (req, res) => {
   try {
