@@ -5,8 +5,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT 
 const authRoutes = require('./routes/authRoutes');
-const bcrypt = require('bcryptjs');
-bcrypt.hash('admin123', 10).then(console.log);
+
+
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 
