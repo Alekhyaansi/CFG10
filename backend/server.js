@@ -7,8 +7,6 @@ const PORT = process.env.PORT
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const questionRoutes = require('./routes/questionRoutes');
-const assessmentRoutes = require('./routes/assessmentRoutes');
-
 
 app.use(express.json());
 app.use('/api/auth', authRoutes);
