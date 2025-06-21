@@ -13,7 +13,7 @@ const assessmentRoutes = require('./routes/assessmentRoutes');
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('api/questions', questionRoutes);
+app.use('/api/questions', questionRoutes);
 app.use('/api/assessment', assessmentRoutes);
 // Route to display the initial message on browser
 app.get('/', (req, res) => {
