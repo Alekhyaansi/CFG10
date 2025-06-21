@@ -13,6 +13,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/assessment', assessmentRoutes);
+app.use('/api/wqc',wqcRoutes)
+
 // Route to display the initial message on browser
 app.get('/', (req, res) => {
   res.send('CFG10 BACKEND API');
