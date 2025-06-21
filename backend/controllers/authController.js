@@ -36,7 +36,7 @@ exports.register = async (req, res) => {
     if (role === 'Trainer') {
       await Trainer.create({
         userId: user._id,
-        certified: true, // defaulting certified trainer
+        certified: true, 
         trainerCourseCompleted: true,
         batchesHandled: [],
         currentBatchSize: 0,
