@@ -1,117 +1,35 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { signup } from "../services/authContext"; // or ../services/authService if renamed
+// src/pages/Register.jsx
+import { useState } from 'react';
+import { registerUser } from '../services/auth';
+import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+export default function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    location: "",
-    role: "", // Can be "WQC", "Trainer", etc.
+    name: '', email: '', phone: '', location: '', password: ''
   });
 
-  const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await signup(formData);
-      console.log("✅ Registered:", response.data);
-      alert("Registration successful!");
-      navigate("/login");
-    } catch (error) {
-      console.error(
-        "❌ Registration error:",
-        error.response?.data || error.message
-      );
-      alert(
-        error.response?.data?.message ||
-          "Registration failed. Please try again."
-      );
+      const res = await registerUser(formData);
+      localStorage.setItem('token', res.data.token);
+      navigate('/dashboard');
+    } catch (err) {
+      alert(err.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
-    <div className="auth-container">
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <h2>Register</h2>
-
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-
-        <select
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          required
-        >
-          <option value="">Select Role</option>
-          <option value="WQC">WQC</option>
-          <option value="Trainer">Trainer</option>
-          <option value="Admin">Admin</option>
-        </select>
-
-        <button type="submit">Register</button>
-
-        <p>
-          Already have an account?{" "}
-          <Link to="/login" style={{ color: "#007bff" }}>
-            Login
-          </Link>
-        </p>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input name="name" placeholder="Name" onChange={handleChange} required />
+      <input name="email" placeholder="Email" onChange={handleChange} required />
+      <input name="phone" placeholder="Phone" onChange={handleChange} />
+      <input name="location" placeholder="Location" onChange={handleChange} required />
+      <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+      <button type="submit">Register</button>
+    </form>
   );
-};
-
-export default Register;
+}

@@ -5,8 +5,7 @@ require("dotenv").config(); // ✅ Load environment variables
 const express = require("express");
 const cors = require("cors");
 const dbconnection = require("./db/connection"); // ✅ Import DB function
-const authRoutes = require("./routes/authRoutes"); // ✅ Your auth routes
-
+const assessmentRoutes = require('./routes/assessmentRoutes');
 const app = express();
 const PORT = process.env.PORT 
 const authRoutes = require('./routes/authRoutes');
@@ -15,13 +14,9 @@ const questionRoutes = require('./routes/questionRoutes');
 const wqcRoutes = require('./routes/wqcRoutes')
 const saathiRoutes = require('./routes/saathiRoutes');
 app.use(express.json());
+app.use(cors()); // ✅ Enable CORS
 dbconnection();
 
-app.use("/api/assessment", assessmentRoutes);
-app.use("/api/wqc", wqcRoutes);
-
-// ✅ Routes
-app.use("/api/auth", authRoutes);
 
 // ✅ Test Route
 app.get("/", (req, res) => {
