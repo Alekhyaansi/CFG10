@@ -12,6 +12,20 @@ const wqcSchema = new mongoose.Schema({
   unlockedResources: [String],
   journeyLog: [String],
   isTrainerCandidate: { type: Boolean, default: false },
+  completedSessions: [
+  {
+    courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
+    completedAt: { type: Date, default: Date.now }
+  }
+],
+sessionProgress: {
+  type: Number,
+  default: 0
+},
+resourcesUnlocked: {
+  type: [Number], // values like [3, 6, 9]
+  default: []
+},
 }, { timestamps: true });
 
 module.exports = mongoose.model('WQC', wqcSchema);

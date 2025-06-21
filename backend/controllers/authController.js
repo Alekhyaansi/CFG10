@@ -91,26 +91,19 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+  try {
     const { email, password } = req.body;
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        console.log('❌ User not found');
-        return res.status(400).json({ msg: 'Invalid credentials' });
-      }
-  
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        console.log('❌ Password mismatch');
-        return res.status(400).json({ msg: 'Invalid credentials' });
-      }
-  
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-      console.log(token);
-      res.status(200).json({ user, token });
-  
-    } catch (err) {
-      console.error('💥 Login error:', err);
-      res.status(500).json({ msg: 'Server error' });
-    }
-  };
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
+
+    const token = generateToken(user);
+
+    res.status(200).json({ user: { id: user._id, name: user.name, role: user.role }, token });
+  } catch (err) {
+    res.status(500).json({ message: 'Login failed', error: err.message });
+  }
+};

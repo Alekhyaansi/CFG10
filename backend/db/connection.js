@@ -1,18 +1,10 @@
-// db/connection.js
+// Initiate connection to MongoDB
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-const mongoose = require("mongoose");
-
-const dbconnection = async () => {
-  try {
-    const dburl = process.env.DB_URI;
-    if (!dburl) throw new Error("DB_URI not defined in .env");
-
-    await mongoose.connect(dburl);
-    console.log("✅ Connected to MongoDB");
-  } catch (err) {
-    console.error("❌ MongoDB connection error:", err.message);
-    process.exit(1); // exit the app if connection fails
-  }
-};
-
-module.exports = dbconnection;
+const dburl = process.env.DB_URI;
+mongoose.connect(dburl).then(() => {
+    console.log("Connected to DB Successfully");
+}).catch((err) => {
+    console.log(err.message);
+});
