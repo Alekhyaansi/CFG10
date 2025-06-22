@@ -1,0 +1,142 @@
+:root {
+  --primary: #00C6FF;
+  --secondary: #0072ff;
+  --bg-light: #f0f9ff;
+  --accent: #ff477e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.home-container {
+  overflow-x: hidden;
+}
+
+/* 💥 Hero */
+.hero {
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px #0003;
+}
+
+.hero-buttons .btn,
+.btn {
+  background: white;
+  color: var(--secondary);
+  padding: 14px 28px;
+  font-weight: bold;
+  border-radius: 30px;
+  margin: 0.5rem;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 30px;
+}
+
+.btn:hover,
+.btn-outline:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Sections */
+section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.features h2,
+.training h2,
+.saathi-section h2,
+.support h2,
+.impact h2,
+.testimonials h2,
+.connect h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--secondary);
+}
+
+.pop-section {
+  background-color: var(--bg-light);
+}
+
+.feature-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  width: 240px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.pop-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.impact-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.impact-card {
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.testimonial {
+  max-width: 600px;
+  margin: 1rem auto;
+  font-style: italic;
+}
+
+.social-links a {
+  margin: 0 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* Footer */
+.footer {
+  background: #111;
+  color: white;
+  padding: 2rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  margin: 0 1rem;
+  text-decoration: none;
+}

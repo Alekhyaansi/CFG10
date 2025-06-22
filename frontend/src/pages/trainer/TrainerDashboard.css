@@ -1,0 +1,73 @@
+.trainer-dashboard-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.overview-card, .batch-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.dashboard-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn, .btn-outline, .btn-link {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #005fa3;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #0077cc;
+  color: #0077cc;
+}
+
+.btn-outline:hover {
+  background-color: #e6f0ff;
+}
+
+.btn-link {
+  color: #0077cc;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.student-list {
+  margin-top: 0.5rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}

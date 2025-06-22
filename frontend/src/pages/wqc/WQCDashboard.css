@@ -1,0 +1,81 @@
+/* Layout & resets */
+body { margin: 0; font-family: 'Inter', sans-serif; }
+.wqc-dashboard { max-width: 960px; margin: auto; padding: 2rem; background: #f5faff; }
+
+/* Loader/Error */
+.loader, .error {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Header */
+.header h1 { color: #0072ff; font-size: 2rem; margin-bottom: 0.25rem; }
+.header p { margin: 0.1rem 0; color: #333; }
+
+/* Progress */
+.progress-section { margin: 2rem 0; }
+.progress-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+.progress-bar { background: #d0e7ff; border-radius: 8px; height: 16px; overflow: hidden; }
+.progress-fill { background: #0072ff; height: 100%; transition: width 0.5s ease; }
+
+/* Grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 1.5rem;
+}
+
+/* Card */
+.course-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,114,255,0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.course-card:hover { transform: translateY(-5px); }
+.course-card.done { opacity: 0.8; }
+
+.card-content { padding: 1.2rem; text-decoration: none; color: #333; }
+.card-content h3 { margin: 0; font-size: 1.1rem; }
+.card-content p { margin: 0.5rem 0; color: #555; }
+
+/* Video */
+.course-video { border-top: 1px solid #eee; width: 100%; height: auto; }
+
+/* Actions */
+.card-actions { padding: 0.8rem 1.2rem; display: flex; align-items: center; justify-content: space-between; }
+.complete-btn {
+  background: #22c55e;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.complete-btn:hover { background: #16a34a; }
+.badge.done {
+  background: #d1fae5;
+  color: #059669;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+/* Resources */
+.resources { padding: 0.5rem 1.2rem 1rem; }
+.resources ul { margin: 0.3rem 0 0 1rem; }
+.resources a { color: #0072ff; text-decoration: underline; }
+
+/* Assessment */
+.assessment-section { margin-top: 2rem; }
+.assessment-box {
+  background: #fff;
+  border-left: 4px solid #0072ff;
+  padding: 1rem;
+  border-radius: 8px;
+}

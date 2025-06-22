@@ -1,0 +1,120 @@
+.course-details {
+  max-width: 860px;
+  margin: auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fdfefe;
+  color: #222;
+}
+
+.course-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+  color: #0072ff;
+}
+
+.course-desc {
+  font-size: 1rem;
+  color: #444;
+}
+
+.video-wrapper {
+  margin-top: 1.5rem;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+.resources {
+  margin-top: 2rem;
+}
+
+.resources h2 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.resources ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.resources a {
+  text-decoration: underline;
+  color: #0056d2;
+}
+
+.ask-box {
+  margin-top: 2.5rem;
+}
+
+.ask-box textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  resize: vertical;
+}
+
+.ask-box button {
+  background: #0072ff;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.ask-box button:hover {
+  background: #005ac2;
+}
+
+.qa-section {
+  margin-top: 2.5rem;
+}
+
+.qa-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-msg {
+  color: #777;
+  font-style: italic;
+}
+
+.question-card {
+  background: #f5faff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.answers {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.answer {
+  color: #1b7c36;
+  margin-bottom: 0.4rem;
+}
+
+.no-answer {
+  font-size: 0.9rem;
+  color: #999;
+}

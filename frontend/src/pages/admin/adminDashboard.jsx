@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../api';
+import './AdminDashboard.css';
 
 export default function AdminDashboard() {
   const [courses, setCourses] = useState([]);
@@ -13,6 +14,10 @@ export default function AdminDashboard() {
     videoUrl: '',
     resources: [],
   });
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
   const fetchCourses = async () => {
     try {
@@ -31,22 +36,17 @@ export default function AdminDashboard() {
     }
   };
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 👇 Upload only 1 video
   const handleVideoUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const data = new FormData();
     data.append('file', file);
-    data.append('upload_preset', 'admin_courses'); // replace with your preset
+    data.append('upload_preset', 'admin_courses');
 
     try {
       const res = await fetch('https://api.cloudinary.com/v1_1/dbiuwhbnt/auto/upload', {
@@ -110,99 +110,68 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Add New Course</h2>
+    <div className="admin-container">
+      <h2 className="admin-heading">📚 Add New Course</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4 mb-8">
-        <input
-          name="sessionNumber"
-          value={form.sessionNumber}
-          onChange={handleInputChange}
-          placeholder="Session Number"
-          className="border p-2 w-full"
-          required
-        />
-        <input
-          name="title"
-          value={form.title}
-          onChange={handleInputChange}
-          placeholder="Title"
-          className="border p-2 w-full"
-          required
-        />
-        <textarea
-          name="description"
-          value={form.description}
-          onChange={handleInputChange}
-          placeholder="Description"
-          className="border p-2 w-full"
-        />
+      <form onSubmit={handleSubmit} className="admin-form">
+        <input name="sessionNumber" value={form.sessionNumber} onChange={handleInputChange} placeholder="Session Number" required />
+        <input name="title" value={form.title} onChange={handleInputChange} placeholder="Title" required />
+        <textarea name="description" value={form.description} onChange={handleInputChange} placeholder="Description" rows={3} />
 
-        {/* 🔴 Upload Video */}
-        <div>
-          <label className="block mb-1 font-medium">Upload Video (Cloudinary)</label>
-          <input type="file" accept="video/*" onChange={handleVideoUpload} className="border p-2 w-full" />
-          {form.videoUrl && (
-            <video src={form.videoUrl} controls width="100%" className="mt-2 rounded" />
-          )}
+        <div className="form-section">
+          <label>🎥 Upload Course Video</label>
+          <input type="file" accept="video/*" onChange={handleVideoUpload} />
+          {form.videoUrl && <video src={form.videoUrl} controls className="preview-video" />}
         </div>
 
-        {/* 🔵 Upload Other Resources */}
-        <div>
-          <label className="block mb-1 font-medium">Upload Additional Resources (PDFs, etc.)</label>
-          <input type="file" multiple onChange={handleFileUpload} className="border p-2 w-full" />
-          {form.resources.length > 0 && (
-            <ul className="mt-2 text-sm list-disc pl-5">
-              {form.resources.map((r, i) => (
-                <li key={i}><a href={r.url} target="_blank" rel="noopener noreferrer">{r.name || `File ${i + 1}`}</a></li>
-              ))}
-            </ul>
-          )}
+        <div className="form-section">
+          <label>📎 Upload Resources</label>
+          <input type="file" multiple onChange={handleFileUpload} />
+          <ul>
+            {form.resources.map((res, i) => (
+              <li key={i}>
+                <a href={res.url} target="_blank" rel="noopener noreferrer">{res.name || `File ${i + 1}`}</a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+        <button type="submit" className="submit-btn">✅ Create Course</button>
       </form>
 
-      <h2 className="text-xl font-bold mb-2">Existing Courses</h2>
+      <h2 className="admin-heading">📂 Existing Courses</h2>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading">⏳ Loading...</p>
       ) : error ? (
-        <p className="text-red-500">{error}</p>
+        <p className="error">{error}</p>
       ) : courses.length === 0 ? (
-        <p>No courses available.</p>
+        <p className="empty">No courses available.</p>
       ) : (
-        <ul className="space-y-4">
+        <div className="course-list">
           {courses.map((course) => (
-            <li key={course._id} className="border p-4 rounded shadow">
-              <div className="flex justify-between">
-                <div>
-                  <p className="font-semibold">{course.sessionNumber}. {course.title}</p>
-                  <p>{course.description}</p>
-                  {course.videoUrl && (
-                    <video src={course.videoUrl} controls className="mt-2 rounded" width="100%" />
-                  )}
-                  <p className="mt-2 font-medium">Resources:</p>
-                  <ul className="list-disc ml-6 text-sm">
-                    {course.resources?.map((res, idx) => (
-                      <li key={idx}>
-                        <a href={res.url || res} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                          {res.name || `Resource ${idx + 1}`}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <button
-                  onClick={() => handleDelete(course._id)}
-                  className="bg-red-500 text-white px-2 py-1 h-fit rounded"
-                >
-                  Delete
-                </button>
+            <div key={course._id} className="course-card">
+              <div className="card-header">
+                <h3>{course.sessionNumber}. {course.title}</h3>
+                <button onClick={() => handleDelete(course._id)} className="delete-btn">🗑 Delete</button>
               </div>
-            </li>
+              <p>{course.description}</p>
+              {course.videoUrl && <video src={course.videoUrl} controls className="preview-video" />}
+              <div className="resources">
+                <p><strong>Resources:</strong></p>
+                <ul>
+                  {course.resources?.map((r, idx) => (
+                    <li key={idx}>
+                      <a href={r.url || r} target="_blank" rel="noopener noreferrer">
+                        {r.name || `Resource ${idx + 1}`}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

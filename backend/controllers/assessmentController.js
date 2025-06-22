@@ -68,3 +68,17 @@ exports.reviewSubmission = async (req, res) => {
     res.status(500).json({ message: 'Review failed', error: err.message });
   }
 };
+
+exports.getAssessmentsForTrainer = async (req, res) => {
+  try {
+    const trainer = await Trainer.findOne({ userId: req.user.id });
+    if (!trainer) return res.status(403).json({ message: 'Trainer only' });
+
+    const assessments = await PostAssessment.find({ trainerId: req.user.id });
+
+    res.status(200).json({ assessments });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch assessments', error: err.message });
+  }
+};
+

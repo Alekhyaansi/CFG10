@@ -74,3 +74,50 @@ exports.answerQuestion = async (req, res) => {
     res.status(500).json({ message: 'Failed to post answer', error: err.message });
   }
 };
+
+
+exports.getQuestionsForCourse = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    let batchId = null;
+
+    if (req.user.role === 'WQC') {
+      const wqc = await WQC.findOne({ userId: req.user.id });
+      batchId = wqc?.batchId;
+    } else if (req.user.role === 'Trainer' || req.user.role === 'Admin') {
+      batchId = req.query.batchId; // ✅ get from query params
+    }
+
+    if (!batchId) return res.status(400).json({ message: 'Batch ID required' });
+
+    const questions = await Question.find({ courseId, batchId })
+      .sort({ createdAt: -1 }) // ✅ sort newest first
+      .populate('askedBy', 'name')
+      .populate('answers.answeredBy', 'name');
+
+    res.status(200).json({ questions });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch questions', error: err.message });
+  }
+};
+
+exports.getUnansweredQuestionsForTrainer = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const batchId = req.query.batchId;
+
+    if (!batchId) return res.status(400).json({ message: 'Batch ID required' });
+
+    const questions = await Question.find({ 
+        courseId, 
+        batchId,
+        answers: { $size: 0 } // ✅ only unanswered
+      })
+      .sort({ createdAt: -1 })
+      .populate('askedBy', 'name');
+
+    res.status(200).json({ questions });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch unanswered questions', error: err.message });
+  }
+};
