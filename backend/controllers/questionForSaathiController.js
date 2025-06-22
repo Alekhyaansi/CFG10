@@ -41,3 +41,30 @@ exports.answerQuestion = async (req, res) => {
     res.status(500).json({ message: "Failed to answer question", error: err.message });
   }
 };
+
+exports.getMyQuestions = async (req, res) => {
+  try {
+    const questions = await Question.find({ askedBy: req.user._id }).sort({ createdAt: -1 });
+    res.status(200).json(questions);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch your questions", error: err.message });
+  }
+};
+
+exports.getMenteeQuestions = async (req, res) => {
+  try {
+    const saathi = await Saathi.findOne({ userId: req.user._id });
+    if (!saathi) {
+      return res.status(404).json({ message: "Saathi not found" });
+    }
+
+    const questions = await Question.find({ askedBy: { $in: saathi.mentees } })
+      .populate('askedBy')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(questions);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch mentees' questions", error: err.message });
+  }
+};
+
